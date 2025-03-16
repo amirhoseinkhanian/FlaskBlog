@@ -1,5 +1,6 @@
 from app import db
 from sqlalchemy import Column, Integer, String
+from werkzeug.security import generate_password_hash
 
 
 class User(db.Model):
@@ -9,3 +10,6 @@ class User(db.Model):
     password = Column(String(128), nullable=False)
     role = Column(Integer, nullable=False, default=0)
     full_name = Column(String(32))
+
+    def set_password(self, password):
+        self.password = generate_password_hash(password)
